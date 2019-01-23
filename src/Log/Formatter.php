@@ -31,7 +31,7 @@ class Formatter extends NormalizerFormatter implements FormatterInterface
         $message = [
             'name' => 'Error',
             'value' => 1,
-            'timestamp' => Carbon::now()->getTimestamp() // round(microtime(true) * 1000),
+            'timestamp' => Carbon::now()->getTimestamp(),
         ];
 
         if (count($tags)) {

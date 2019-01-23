@@ -22,7 +22,7 @@ return [
         'port' => env('INFLUXDB_PORT', 8086),
         'username' => env('INFLUXDB_USER', ''),
         'password' => env('INFLUXDB_PASSWORD', ''),
-        'dbname' => env('INFLUXDB_DBNAME', ''),
+        'dbname' => env('INFLUXDB_DBNAME', 'dbname'),
         'ssl' => env('INFLUXDB_SSL', false),
 
         'verify_ssl' => env('INFLUXDB_VERIFYSSL', false),

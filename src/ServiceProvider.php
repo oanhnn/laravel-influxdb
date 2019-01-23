@@ -35,7 +35,7 @@ class ServiceProvider extends IlluminateServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 dirname(__DIR__) . '/config/influxdb.php' => config_path('influxdb.php'),
-            ]);
+            ], 'config');
         }
 
         Log::extend('influxdb', function ($app, array $config) {
