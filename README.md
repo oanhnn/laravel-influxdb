@@ -82,6 +82,7 @@ In `config/logging.php` file, config you log with driver `influxdb`
 ```php
 <?php
 return [
+    // ...
     'channels' => [
         // ...
         'custom' => [
@@ -91,7 +92,8 @@ return [
             'bubble' => true,
         ],
         // ...
-	],
+    ],
+    // ...
 ];
 
 ```
