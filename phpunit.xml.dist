@@ -12,13 +12,13 @@
          verbose="true"
 >
     <php>
-        <!-- <ini name="memory_limit" value="-1"/> -->
-        <!-- <env name="APP_ENV" value="testing"/> -->
+        <!--<ini name="memory_limit" value="-1"/>-->
+        <!--<env name="APP_ENV" value="testing"/>-->
     </php>
 
     <!-- Add any additional test suites you want to run here -->
     <testsuites>
-        <testsuite name="Test Source">
+        <testsuite name="tests">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

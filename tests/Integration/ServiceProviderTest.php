@@ -1,26 +1,25 @@
 <?php
 
-namespace Laravel\InfluxDB\Tests\Unit;
+namespace Tests\Integration;
 
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Log;
 use InfluxDB\Database;
 use InfluxDB\Driver\Guzzle;
 use InfluxDB\Driver\UDP;
+use Laravel\InfluxDB\Facades\InfluxDB;
 use Laravel\InfluxDB\ServiceProvider;
-use Laravel\InfluxDB\Tests\NonPublicAccessibleTrait;
-use Laravel\InfluxDB\Tests\TestCase;
+use Tests\TestCase;
 
 /**
  * Class ServiceProviderTest
  *
- * @package     Laravel\InfluxDB\Tests\Unit
+ * @package     Tests\Integration
  * @author      Oanh Nguyen <oanhnn.bk@gmail.com>
  * @license     The MIT license
  */
 class ServiceProviderTest extends TestCase
 {
-    use NonPublicAccessibleTrait;
-
     /**
      * @var \Illuminate\Filesystem\Filesystem
      */
@@ -29,7 +28,7 @@ class ServiceProviderTest extends TestCase
     /**
      * Set up before test
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -39,7 +38,7 @@ class ServiceProviderTest extends TestCase
     /**
      * Clear up after test
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->files->delete([
             $this->app->configPath('influxdb.php'),
@@ -49,20 +48,22 @@ class ServiceProviderTest extends TestCase
     }
 
     /**
-     * Test file influxdb.php is existed in config directory after run
+     * Tests config file is existed in config directory after run
      *
-     * php artisan vendor:publish --provider="Laravel\\InfluxDB\\ServiceProvider" --tag=config
+     * php artisan vendor:publish --provider="Laravel\\InfluxDB\\ServiceProvider" --tag=laravel-influxdb-config
+     *
+     * @test
      */
-    public function testPublishVendorConfig()
+    public function it_should_publish_vendor_config()
     {
         $sourceFile = dirname(dirname(__DIR__)) . '/config/influxdb.php';
-        $targetFile = config_path('influxdb.php');
+        $targetFile = base_path('config/influxdb.php');
 
         $this->assertFileNotExists($targetFile);
 
         $this->artisan('vendor:publish', [
             '--provider' => 'Laravel\\InfluxDB\\ServiceProvider',
-            '--tag' => 'config',
+            '--tag' => 'laravel-influxdb-config',
         ]);
 
         $this->assertFileExists($targetFile);
@@ -71,15 +72,17 @@ class ServiceProviderTest extends TestCase
 
     /**
      * Test config values are merged
+     *
+     * @test
      */
-    public function testDefaultConfigValues()
+    public function it_should_provides_default_config()
     {
         $config = config('influxdb');
 
-        $this->assertIsArray($config);
+        $this->assertTrue(is_array($config));
 
         $this->assertArrayHasKey('database', $config);
-        $this->assertIsArray($config['database']);
+        $this->assertTrue(is_array($config['database']));
 
         $this->assertArrayHasKey('dsn', $config['database']);
         $this->assertArrayHasKey('protocol', $config['database']);
@@ -93,7 +96,7 @@ class ServiceProviderTest extends TestCase
         $this->assertArrayHasKey('timeout', $config['database']);
 
         $this->assertArrayHasKey('queue', $config);
-        $this->assertIsArray($config['queue']);
+        $this->assertTrue(is_array($config['queue']));
 
         $this->assertArrayHasKey('enable', $config['queue']);
         $this->assertArrayHasKey('name', $config['queue']);
@@ -105,22 +108,29 @@ class ServiceProviderTest extends TestCase
 
     /**
      * Test manager is bound in application container
+     *
+     * @test
      */
-    public function testBoundDatabase()
+    public function it_should_bound_some_services()
     {
         $classes = (new ServiceProvider($this->app))->provides();
 
         foreach ($classes as $class) {
             $this->assertTrue($this->app->bound($class));
-            $this->assertInstanceOf($class, $this->app->get($class));
+            if (class_exists($class)) {
+                $this->assertInstanceOf($class, $this->app->make($class));
+            }
         }
     }
 
     /**
      * Test make InfluxDB instance from dsn
+     *
      * Expects return InfluxDB\Database instance with connection via https protocol
+     *
+     * @test
      */
-    public function testMakeInfluxDBInstanceFromDSN()
+    public function it_can_make_influxdb_instance_from_dsn()
     {
         $dsn = 'udp+influxdb://username:pass@localhost:4444/demo';
 
@@ -136,9 +146,12 @@ class ServiceProviderTest extends TestCase
 
     /**
      * Test make InfluxDB instance with protocol http and option ssl is TRUE
+     *
      * Expects return InfluxDB\Database instance with connection via https protocol
+     *
+     * @test
      */
-    public function testMakeInfluxDBInstanceWithSSL()
+    public function it_can_make_influxdb_instance_with_ssl()
     {
         config()->set('influxdb.database.ssl', true);
         config()->set('influxdb.database.protocol', 'http');
@@ -153,9 +166,12 @@ class ServiceProviderTest extends TestCase
 
     /**
      * Test make InfluxDB instance with DSN (without database) and database name
+     *
      * Expects return InfluxDB\Database instance with name is database name
+     *
+     * @test
      */
-    public function testMakeInfluxDBInstanceWithDBName()
+    public function it_can_make_influxdb_instance_with_db_name()
     {
         $dsn = 'udp+influxdb://username:pass@localhost:4444';
         $dbname = 'demo';
@@ -168,5 +184,29 @@ class ServiceProviderTest extends TestCase
 
         $this->assertInstanceOf(Database::class, $instance);
         $this->assertEquals($dbname, $instance->getName());
+    }
+
+    /**
+     * Test make log driver
+     *
+     * @test
+     */
+    public function it_should_provides_log_driver()
+    {
+        // Ignore this test
+        if (version_compare($this->app->version(), '5.6.0', '<')) {
+            $this->markTestSkipped('This test only available on Laravel 5.6.0+');
+        }
+
+        config()->set('logging.channels.custom', [
+            'driver' => 'influxdb',
+            'name' => 'log-name',
+            'level' => 'info',
+            'bubble' => true,
+        ]);
+
+        InfluxDB::shouldReceive('writePoints')->once()->andReturnTrue();
+
+        Log::channel('custom')->error('An error message');
     }
 }

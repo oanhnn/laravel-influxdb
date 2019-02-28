@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\InfluxDB\Tests;
+namespace Tests;
 
 use Laravel\InfluxDB\ServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
@@ -8,11 +8,11 @@ use Orchestra\Testbench\TestCase as BaseTestCase;
 /**
  * Class TestCase
  *
- * @package     Laravel\Settings\Tests
+ * @package     Tests
  * @author      Oanh Nguyen <oanhnn.bk@gmail.com>
  * @license     The MIT license
  */
-class TestCase extends BaseTestCase
+abstract class TestCase extends BaseTestCase
 {
     /**
      * Get package providers.

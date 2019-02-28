@@ -64,7 +64,7 @@ class Handler extends AbstractProcessingHandler
                 return $item['formatted']['point'];
             });
 
-        if ($points->count()) {
+        if (!$points->count()) {
             return true;
         }
 

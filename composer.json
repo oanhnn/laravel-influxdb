@@ -21,13 +21,12 @@
     "guzzlehttp/guzzle": "^6.3",
     "illuminate/support": "^5.5",
     "influxdb/influxdb-php": "^1.14.7",
-    "monolog/monolog": "^1.24",
-    "nesbot/carbon": "^1.20"
+    "monolog/monolog": "^1.24"
   },
   "require-dev": {
     "mockery/mockery": "^1.0",
     "orchestra/testbench": "^3.5",
-    "phpunit/phpunit": "~6.3|~7.0",
+    "phpunit/phpunit": "^6.3|^7.0",
     "squizlabs/php_codesniffer": "^3.2"
   },
   "config": {
@@ -51,9 +50,18 @@
     }
   },
   "scripts": {
-    "phpunit": "php vendor/phpunit/phpunit/phpunit --coverage-html storage/coverage",
-    "phpcs": "php vendor/squizlabs/php_codesniffer/bin/phpcs",
-    "phpcbf": "php vendor/squizlabs/php_codesniffer/bin/phpcbf"
+    "test": [
+      "@php vendor/phpunit/phpunit/phpunit --testdox --testsuite=tests"
+    ],
+    "coverage": [
+      "@php vendor/phpunit/phpunit/phpunit --coverage-html storage/coverage --testsuite=tests"
+    ],
+    "cs-check": [
+      "@php vendor/squizlabs/php_codesniffer/bin/phpcs"
+    ],
+    "cs-fix": [
+      "@php vendor/squizlabs/php_codesniffer/bin/phpcbf"
+    ]
   },
   "support": {
     "issues": "https://github.com/oanhnn/laravel-influxdb/issues",

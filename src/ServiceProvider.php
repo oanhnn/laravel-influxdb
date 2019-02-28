@@ -2,6 +2,7 @@
 
 namespace Laravel\InfluxDB;
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 use InfluxDB\Client;
@@ -34,18 +35,20 @@ class ServiceProvider extends IlluminateServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                dirname(__DIR__) . '/config/influxdb.php' => config_path('influxdb.php'),
-            ], 'config');
+                dirname(__DIR__) . '/config/influxdb.php' => base_path('config/influxdb.php'),
+            ], 'laravel-influxdb-config');
         }
 
-        Log::extend('influxdb', function ($app, array $config) {
-            $handler = new Handler(
-                $config['level'] ?? Logger::WARNING,
-                $config['bubble'] ?? true
-            );
+        if (version_compare(Application::VERSION, '5.6.0', '>=')) {
+            Log::extend('influxdb', function ($app, array $config) {
+                $handler = new Handler(
+                    $config['level'] ?? Logger::WARNING,
+                    $config['bubble'] ?? true
+                );
 
-            return new Logger($config['name'], [$handler]);
-        });
+                return new Logger($config['name'], [$handler]);
+            });
+        }
     }
 
     /**
@@ -58,7 +61,7 @@ class ServiceProvider extends IlluminateServiceProvider
         $this->mergeConfigFrom(dirname(__DIR__) . '/config/influxdb.php', 'influxdb');
 
         $this->app->singleton(Database::class, function ($app) {
-            $config = $app['config']->get('influxdb.database');
+            $config = $app->get('config')->get('influxdb.database');
 
             if (empty($config['dsn'])) {
                 if ($config['ssl'] && $config['protocol'] === 'http') {

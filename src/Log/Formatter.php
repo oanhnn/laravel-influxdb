@@ -8,6 +8,13 @@ use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\NormalizerFormatter;
 use Monolog\Logger;
 
+/**
+ * Class Formatter
+ *
+ * @package     Laravel\InfluxDB\Log
+ * @author      Oanh Nguyen <oanhnn.bk@gmail.com>
+ * @license     The MIT license
+ */
 class Formatter extends NormalizerFormatter implements FormatterInterface
 {
     /**
