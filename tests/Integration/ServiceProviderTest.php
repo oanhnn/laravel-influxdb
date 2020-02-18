@@ -52,9 +52,9 @@ class ServiceProviderTest extends TestCase
      *
      * php artisan vendor:publish --provider="Laravel\\InfluxDB\\ServiceProvider" --tag=laravel-influxdb-config
      *
-     * @test
+     * @return void
      */
-    public function it_should_publish_vendor_config()
+    public function testItShouldPublishVendorConfig()
     {
         $sourceFile = dirname(dirname(__DIR__)) . '/config/influxdb.php';
         $targetFile = base_path('config/influxdb.php');
@@ -73,9 +73,9 @@ class ServiceProviderTest extends TestCase
     /**
      * Test config values are merged
      *
-     * @test
+     * @return void
      */
-    public function it_should_provides_default_config()
+    public function testItShouldProvidesDefaultConfig()
     {
         $config = config('influxdb');
 
@@ -109,9 +109,9 @@ class ServiceProviderTest extends TestCase
     /**
      * Test manager is bound in application container
      *
-     * @test
+     * @return void
      */
-    public function it_should_bound_some_services()
+    public function testItShouldBoundSomeServices()
     {
         $classes = (new ServiceProvider($this->app))->provides();
 
@@ -128,9 +128,9 @@ class ServiceProviderTest extends TestCase
      *
      * Expects return InfluxDB\Database instance with connection via https protocol
      *
-     * @test
+     * @return void
      */
-    public function it_can_make_influxdb_instance_from_dsn()
+    public function testItCanMakeInfluxdbInstanceFromDsn()
     {
         $dsn = 'udp+influxdb://username:pass@localhost:4444/demo';
 
@@ -149,9 +149,9 @@ class ServiceProviderTest extends TestCase
      *
      * Expects return InfluxDB\Database instance with connection via https protocol
      *
-     * @test
+     * @return void
      */
-    public function it_can_make_influxdb_instance_with_ssl()
+    public function testItCanMakeInfluxdbInstanceWithSsl()
     {
         config()->set('influxdb.database.ssl', true);
         config()->set('influxdb.database.protocol', 'http');
@@ -169,9 +169,9 @@ class ServiceProviderTest extends TestCase
      *
      * Expects return InfluxDB\Database instance with name is database name
      *
-     * @test
+     * @return void
      */
-    public function it_can_make_influxdb_instance_with_db_name()
+    public function testItCanMakeInfluxdbInstanceWithDbName()
     {
         $dsn = 'udp+influxdb://username:pass@localhost:4444';
         $dbname = 'demo';
@@ -189,9 +189,9 @@ class ServiceProviderTest extends TestCase
     /**
      * Test make log driver
      *
-     * @test
+     * @return void
      */
-    public function it_should_provides_log_driver()
+    public function testItShouldProvidesLogDriver()
     {
         // Ignore this test
         if (version_compare($this->app->version(), '5.6.0', '<')) {
