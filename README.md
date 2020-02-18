@@ -1,29 +1,19 @@
 # Laravel InfluxDB
 
-[![Latest Version](https://img.shields.io/packagist/v/oanhnn/laravel-influxdb.svg)](https://packagist.org/packages/oanhnn/laravel-influxdb)
-[![Software License](https://img.shields.io/github/license/oanhnn/laravel-influxdb.svg)](LICENSE)
-[![Build Status](https://img.shields.io/travis/oanhnn/laravel-influxdb/master.svg)](https://travis-ci.org/oanhnn/laravel-influxdb)
-[![Coverage Status](https://img.shields.io/coveralls/github/oanhnn/laravel-influxdb/master.svg)](https://coveralls.io/github/oanhnn/laravel-influxdb?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/oanhnn/laravel-influxdb.svg)](https://packagist.org/packages/oanhnn/laravel-influxdb)
-[![Requires PHP](https://img.shields.io/travis/php-v/oanhnn/laravel-influxdb.svg)](https://travis-ci.org/oanhnn/laravel-influxdb)
+[![Latest Version](https://img.shields.io/packagist/v/oanhnn/laravel-ìnluxdb.svg)](https://packagist.org/packages/oanhnn/laravel-ìnluxdb)
+[![Software License](https://img.shields.io/github/license/oanhnn/laravel-ìnluxdb.svg)](LICENSE.md)
+[![Build Status](https://img.shields.io/travis/oanhnn/laravel-ìnluxdb/master.svg)](https://travis-ci.org/oanhnn/laravel-ìnluxdb)
+[![Coverage Status](https://img.shields.io/coveralls/github/oanhnn/laravel-ìnluxdb/master.svg)](https://coveralls.io/github/oanhnn/laravel-ìnluxdb?branch=master)
+[![Total Downloads](https://img.shields.io/packagist/dt/oanhnn/laravel-ìnluxdb.svg)](https://packagist.org/packages/oanhnn/laravel-ìnluxdb)
+[![Requires PHP](https://img.shields.io/travis/php-v/oanhnn/laravel-ìnluxdb.svg)](https://travis-ci.org/oanhnn/laravel-ìnluxdb)
 
 A service made to provide, set up and use the library [influxdb-php](https://github.com/influxdata/influxdb-php/) in Laravel.
-
-## TODO
-
-- [x] Make repository on [Github](https://github.com)
-- [x] Make repository on [Travis](https://travis.org)
-- [x] Make repository on [Coveralls](https://coveralls.io)
-- [x] Make repository on [Packagist](https://packagist.org)
-- [x] Write logic classes
-- [ ] Write test scripts
-- [x] Write README & documents
 
 ## Requirements
 
 * php >=7.1.3
 * Laravel 5.5+
-* influxdb-php 1.14.7+
+* influxdb-php 1.14+
 
 ## Installation
 
@@ -136,4 +126,4 @@ using the issue tracker.
 ## License
 
 This project is released under the MIT License.   
-Copyright © 2019 [Oanh Nguyen](https://oanhnn.github.io/).
+Copyright © [Oanh Nguyen](https://oanhnn.github.io/).

@@ -23,7 +23,7 @@ class Handler extends AbstractProcessingHandler
      * @return void
      * @throws \Exception
      */
-    protected function write(array $record)
+    protected function write(array $record): void
     {
         $this->send([$record]);
     }
@@ -35,7 +35,7 @@ class Handler extends AbstractProcessingHandler
      * @return void
      * @throws \Exception
      */
-    public function handleBatch(array $records)
+    public function handleBatch(array $records): void
     {
         foreach ($records as &$record) {
             if (!$this->isHandling($record)) {
@@ -54,7 +54,7 @@ class Handler extends AbstractProcessingHandler
      * @return bool
      * @throws \Exception
      */
-    protected function send(array $records)
+    protected function send(array $records): bool
     {
         $points = collect($records)
             ->filter(function ($item) {
