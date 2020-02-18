@@ -1,11 +1,11 @@
 # Laravel InfluxDB
 
-[![Latest Version](https://img.shields.io/packagist/v/oanhnn/laravel-ìnluxdb.svg)](https://packagist.org/packages/oanhnn/laravel-ìnluxdb)
-[![Software License](https://img.shields.io/github/license/oanhnn/laravel-ìnluxdb.svg)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/oanhnn/laravel-ìnluxdb/master.svg)](https://travis-ci.org/oanhnn/laravel-ìnluxdb)
-[![Coverage Status](https://img.shields.io/coveralls/github/oanhnn/laravel-ìnluxdb/master.svg)](https://coveralls.io/github/oanhnn/laravel-ìnluxdb?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/oanhnn/laravel-ìnluxdb.svg)](https://packagist.org/packages/oanhnn/laravel-ìnluxdb)
-[![Requires PHP](https://img.shields.io/travis/php-v/oanhnn/laravel-ìnluxdb.svg)](https://travis-ci.org/oanhnn/laravel-ìnluxdb)
+[![Latest Version](https://img.shields.io/packagist/v/oanhnn/laravel-influxdb.svg)](https://packagist.org/packages/oanhnn/laravel-influxdb)
+[![Software License](https://img.shields.io/github/license/oanhnn/laravel-influxdb.svg)](LICENSE.md)
+[![Build Status](https://img.shields.io/travis/oanhnn/laravel-influxdb/master.svg)](https://travis-ci.org/oanhnn/laravel-influxdb)
+[![Coverage Status](https://img.shields.io/coveralls/github/oanhnn/laravel-influxdb/master.svg)](https://coveralls.io/github/oanhnn/laravel-influxdb?branch=master)
+[![Total Downloads](https://img.shields.io/packagist/dt/oanhnn/laravel-influxdb.svg)](https://packagist.org/packages/oanhnn/laravel-influxdb)
+[![Requires PHP](https://img.shields.io/travis/php-v/oanhnn/laravel-influxdb.svg)](https://travis-ci.org/oanhnn/laravel-influxdb)
 
 A service made to provide, set up and use the library [influxdb-php](https://github.com/influxdata/influxdb-php/) in Laravel.
 
